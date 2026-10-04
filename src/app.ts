@@ -3,17 +3,20 @@ import express from "express";
 import cors from "cors";
 import projectEnquiryRouter from "./routes/projectEnquiry.route.js";
 import authRouter from "./routes/user.route.js";
-import { requiredEnv } from "./config/env.js"; 
+import { requiredEnv } from "./config/env.js";
+
 const app = express();
 
 app.use(
   cors({
     origin: requiredEnv("CORS_ORIGIN"), 
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, 
+    credentials: true,
   })
 );
+
+app.options("*", cors());
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
