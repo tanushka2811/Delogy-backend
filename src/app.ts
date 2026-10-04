@@ -1,7 +1,7 @@
 import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
-import { requiredEnv } from "./config/env.js";
+// import { requiredEnv } from "./config/env.js";
 import projectEnquiryRouter from "./routes/projectEnquiry.route.js";
 import authRouter from "./routes/user.route.js";
 
@@ -11,8 +11,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: requiredEnv("CORS_ORIGIN"),
-    credentials: true,
+    origin: "http://localhost:3000", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
