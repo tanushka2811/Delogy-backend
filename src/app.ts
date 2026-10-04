@@ -7,21 +7,22 @@ import { requiredEnv } from "./config/env.js";
 
 const app = express();
 
+
 app.use(
   cors({
-    origin: requiredEnv("CORS_ORIGIN"), // e.g. "https://delogy.vercel.app"
+    origin: requiredEnv("CORS_ORIGIN"), 
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
+    optionsSuccessStatus: 200, 
   })
 );
-
-app.options("/*", cors());
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
 
 app.use("/api/v1/project-enquiries", projectEnquiryRouter);
 app.use("/api/v1/auth", authRouter);
